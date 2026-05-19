@@ -3,7 +3,7 @@
   "width": 800,
   "height": 500,
   "title": "Population by State in Malaysia",
-  "data": {"url": "../data/population_state_clean.csv"},
+  "data": {"url": "data/population_state_clean.csv"},
   "mark": {
     "type": "bar"
   },
