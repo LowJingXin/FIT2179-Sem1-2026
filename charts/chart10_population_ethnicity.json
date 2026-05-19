@@ -4,7 +4,7 @@
     "width": 800,
     "height": 430,
     "data": {
-        "url": "../data/population_ethnicity.csv"
+        "url": "data/population_ethnicity.csv"
     },
     "mark": {
         "type": "area"
