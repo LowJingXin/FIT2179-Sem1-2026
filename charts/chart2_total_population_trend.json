@@ -4,7 +4,7 @@
   "height": 400,
   "title": "Malaysia's Total Population Over Time",
   "data": {
-    "url": "../data/total_population_malaysia_clean.csv"
+    "url": "data/total_population_malaysia_clean.csv"
   },
   "mark": {
     "type": "line",
