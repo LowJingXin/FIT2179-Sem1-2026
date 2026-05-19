@@ -18,7 +18,7 @@
       "lookup": "properties.Name",
       "from": {
         "data": {
-          "url": "../data/population_state_map.csv"
+          "url": "data/population_state_map.csv"
         },
         "key": "state",
         "fields": ["population"]
