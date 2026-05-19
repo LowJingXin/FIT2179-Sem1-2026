@@ -1,0 +1,49 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Malaysia's Population by Ethnicity Over Time",
+    "width": 800,
+    "height": 430,
+    "data": {
+        "url": "../data/population_ethnicity.csv"
+    },
+    "mark": {
+        "type": "area"
+    },
+    "encoding": {
+        "x": {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year",
+            "axis": {
+                "labelAngle": -45
+            }
+        },
+        "y": {
+            "field": "population",
+            "type": "quantitative",
+            "title": "Population"
+        },
+        "color": {
+            "field": "ethnicity",
+            "type": "nominal",
+            "title": "Ethnicity"
+        },
+        "tooltip": [
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year"
+            },
+            {
+                "field": "ethnicity",
+                "type": "nominal",
+                "title": "Ethnicity"
+            },
+            {
+                "field": "population",
+                "type": "quantitative",
+                "title": "Population"
+            }
+        ]
+    }
+}

@@ -1,0 +1,50 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Births and Deaths in Malaysia Over Time",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "data/birth_death_clean.csv"
+  },
+  "mark": {
+    "type": "line",
+    "point": true
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": -45
+      }
+      },
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Number of people"
+    },
+    "color": {
+      "field": "type",
+      "type": "nominal",
+      "title": "Measure"
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "type",
+        "type": "nominal",
+        "title": "Measure"
+      },
+      {
+        "field": "value",
+        "type": "quantitative",
+        "title": "Value"
+      }
+    ]
+  }
+}
