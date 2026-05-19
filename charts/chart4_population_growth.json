@@ -4,7 +4,7 @@
   "width": 800,
   "height": 500,
   "data": {
-    "url": "../data/population_state_growth.csv"
+    "url": "data/population_state_growth.csv"
   },
   "mark": {
     "type": "bar"
