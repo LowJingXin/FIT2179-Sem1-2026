@@ -4,7 +4,7 @@
   "width": 720,
   "height": 500,
   "data": {
-    "url": "../data/malaysia_states.topojson",
+    "url": "data/malaysia_states.topojson",
     "format": {
       "type": "topojson",
       "feature": "states"
