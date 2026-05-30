@@ -1,0 +1,68 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/birth_state_clean.csv"
+  },
+  "params": [
+    {
+      "name": "yearParam",
+      "value": 2023,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2023,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.year == yearParam"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3,
+    "color": "#1e40af"
+  },
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": {
+        "field": "births",
+        "order": "descending"
+      },
+      "axis": {
+        "title": "",
+        "labelFontSize": 11
+      }
+    },
+    "x": {
+      "field": "births",
+      "type": "quantitative",
+      "title": "Births"
+    },
+    "opacity": {
+      "value": 0.85
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "year",
+        "title": "Year"
+      },
+      {
+        "field": "births",
+        "title": "Births",
+        "format": ","
+      }
+    ]
+  }
+}

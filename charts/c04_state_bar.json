@@ -1,0 +1,47 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "data/population_state_map.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3,
+    "color": "#870303"
+  },
+  "encoding": {
+    "x": {
+      "field": "state",
+      "type": "nominal",
+      "sort": {
+        "field": "population",
+        "order": "descending"
+      },
+      "axis": {
+        "labelAngle": 0,
+        "title": "",
+        "labelFontSize": 11
+      }
+    },
+    "y": {
+      "field": "population",
+      "type": "quantitative",
+      "title": "Population ('000)"
+    },
+    "opacity": {
+      "value": 0.82
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "population",
+        "title": "Pop ('000)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

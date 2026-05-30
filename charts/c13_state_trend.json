@@ -1,0 +1,235 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 300,
+
+  "data": {
+    "url": "data/birth_state_clean.csv"
+  },
+
+  "params": [
+    {
+      "name": "stateParam",
+      "value": "Selangor",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Johor",
+          "Kedah",
+          "Kelantan",
+          "Kuala Lumpur",
+          "Labuan",
+          "Malacca",
+          "Negeri Sembilan",
+          "Pahang",
+          "Penang",
+          "Perak",
+          "Perlis",
+          "Putrajaya",
+          "Sabah",
+          "Sarawak",
+          "Selangor",
+          "Terengganu"
+        ],
+        "name": "State: "
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "filter": "datum.state == stateParam"
+    }
+  ],
+
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "opacity": 0.1,
+        "color": "#1e40af"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "labelAngle": 0,
+            "title": "Year",
+            "values": ["2000", "2005", "2010", "2015", "2020", "2025"]
+          }
+        },
+        "y": {
+          "field": "births",
+          "type": "quantitative",
+          "title": "Count"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "color": "#1e40af",
+        "point": {
+          "filled": true,
+          "size": 40,
+          "color": "#1e40af"
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "births",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "title": "Year"
+          },
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "births",
+            "title": "Births",
+            "format": ","
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/death_state_clean.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.state == stateParam"
+        }
+      ],
+      "mark": {
+        "type": "area",
+        "opacity": 0.1,
+        "color": "#9a3412"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"          
+        },
+        "y": {
+          "field": "death",
+          "type": "quantitative"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/death_state_clean.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.state == stateParam"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "color": "#9a3412",
+        "point": {
+          "filled": true,
+          "size": 40,
+          "color": "#9a3412"
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "death",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "title": "Year"
+          },
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "death",
+            "title": "Deaths",
+            "format": ","
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2021"
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [6, 4],
+        "strokeWidth": 2,
+        "color": "#7f1d1d"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2021",
+            "label": "COVID-19"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "dx": 8,
+        "dy": 8,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#7f1d1d"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "value": 20
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ]
+}

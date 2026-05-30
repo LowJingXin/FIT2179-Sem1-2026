@@ -1,0 +1,29 @@
+year,ethnicity,label,eth_index,population,r,x,y
+2000,bumi_malay,Bumi Malay,0,11785.9,0.6555,0,0.6555
+2000,bumi_other,Bumi Other,1,2563.3,0.6782,0.5873,0.3391
+2000,chinese,Chinese,2,5761.7,0.8359,0.724,-0.418
+2000,indian,Indian,3,1696.1,0.8455,0,-0.8455
+2000,other_citizen,Other Citizen,4,274.7,1,-0.866,-0.5
+2000,other_noncitizen,Non-Citizen,5,1413.1,0.418,-0.362,0.209
+2000,close,Bumi Malay,6,11785.9,0.6555,0,0.6555
+2010,bumi_malay,Bumi Malay,0,14322.1,0.7965,0,0.7965
+2010,bumi_other,Bumi Other,1,3354.7,0.8875,0.7686,0.4438
+2010,chinese,Chinese,2,6430.4,0.933,0.808,-0.4665
+2010,indian,Indian,3,1924.9,0.9595,0,-0.9595
+2010,other_citizen,Other Citizen,4,232,0.8446,-0.7314,-0.4223
+2010,other_noncitizen,Non-Citizen,5,2324.5,0.6876,-0.5955,0.3438
+2010,close,Bumi Malay,6,14322.1,0.7965,0,0.7965
+2020,bumi_malay,Bumi Malay,0,16913,0.9406,0,0.9406
+2020,bumi_other,Bumi Other,1,3736.5,0.9885,0.8561,0.4943
+2020,chinese,Chinese,2,6892.4,1,0.866,-0.5
+2020,indian,Indian,3,1998.8,0.9964,0,-0.9964
+2020,other_citizen,Other Citizen,4,215.6,0.7849,-0.6797,-0.3924
+2020,other_noncitizen,Non-Citizen,5,2691.1,0.796,-0.6894,0.398
+2020,close,Bumi Malay,6,16913,0.9406,0,0.9406
+2025,bumi_malay,Bumi Malay,0,17981.2,1,0,1
+2025,bumi_other,Bumi Other,1,3779.8,1,0.866,0.5
+2025,chinese,Chinese,2,6849.6,0.9938,0.8606,-0.4969
+2025,indian,Indian,3,2006.1,1,0,-1
+2025,other_citizen,Other Citizen,4,234.3,0.8529,-0.7387,-0.4265
+2025,other_noncitizen,Non-Citizen,5,3380.7,1,-0.866,0.5
+2025,close,Bumi Malay,6,17981.2,1,0,1

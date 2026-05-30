@@ -1,0 +1,95 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/natural_increase.csv"
+  },
+  "params": [
+    {
+      "name": "yearParam",
+      "value": 2023,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2023,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.year == yearParam"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 3
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": {
+            "field": "natural_increase",
+            "order": "descending"
+          },
+          "axis": {
+            "title": "",
+            "labelFontSize": 11
+          }
+        },
+        "x": {
+          "field": "natural_increase",
+          "type": "quantitative",
+          "title": "Natural Increase (Births \u2212 Deaths)"
+        },
+        "color": {
+          "field": "natural_increase",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "blueorange",
+            "domainMid": 10000
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "births",
+            "title": "Births",
+            "format": ","
+          },
+          {
+            "field": "deaths",
+            "title": "Deaths",
+            "format": ","
+          },
+          {
+            "field": "natural_increase",
+            "title": "Natural Increase",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#ddd5c8",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        }
+      }
+    }
+  ]
+}

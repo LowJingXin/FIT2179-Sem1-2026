@@ -1,0 +1,145 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 460,
+  "layer": [
+    {
+      "data": {"url": "data/population_pyramid.csv"},
+      "transform": [{"filter": "datum.sex === 'male'"}],
+      "mark": {"type": "bar", "cornerRadiusEnd": 2, "color": "#1e40af"},
+      "encoding": {
+        "y": {"field": "age", "type": "ordinal", "sort": ["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85+"],
+              "axis": {"labels": false, "ticks": false, "title": null, "domain": false}},
+        "x": {
+          "field": "signed_population", "type": "quantitative",
+          "axis": {"title": "Population ('000)", "labelExpr": "datum.value<0 ? format(-datum.value,'.0f') : format(datum.value,'.0f')"}
+        },
+        "x2": {"datum": -65},
+        "tooltip": [{"field": "age", "title": "Age group"}, {"field": "population", "title": "Population ('000)", "format": ".1f"}]
+      }
+    },
+    {
+      "data": {"url": "data/population_pyramid.csv"},
+      "transform": [{"filter": "datum.sex === 'female'"}],
+      "mark": {"type": "bar", "cornerRadiusEnd": 2, "color": "#9a3412"},
+      "encoding": {
+        "y": {"field": "age", "type": "ordinal", "sort": ["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85+"],
+              "axis": {"labels": false, "ticks": false, "title": null, "domain": false}},
+        "x": {"datum": 65},
+        "x2": {"field": "signed_population", "type": "quantitative"},
+        "tooltip": [{"field": "age", "title": "Age group"}, {"field": "population", "title": "Population ('000)", "format": ".1f"}]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "age": "0-4"
+          },
+          {
+            "age": "5-9"
+          },
+          {
+            "age": "10-14"
+          },
+          {
+            "age": "15-19"
+          },
+          {
+            "age": "20-24"
+          },
+          {
+            "age": "25-29"
+          },
+          {
+            "age": "30-34"
+          },
+          {
+            "age": "35-39"
+          },
+          {
+            "age": "40-44"
+          },
+          {
+            "age": "45-49"
+          },
+          {
+            "age": "50-54"
+          },
+          {
+            "age": "55-59"
+          },
+          {
+            "age": "60-64"
+          },
+          {
+            "age": "65-69"
+          },
+          {
+            "age": "70-74"
+          },
+          {
+            "age": "75-79"
+          },
+          {
+            "age": "80-84"
+          },
+          {
+            "age": "85+"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 9.5,
+        "fontWeight": 600,
+        "color": "#3d3730"
+      },
+      "encoding": {
+        "y": {
+          "field": "age",
+          "type": "ordinal",
+          "sort": [
+            "0-4",
+            "5-9",
+            "10-14",
+            "15-19",
+            "20-24",
+            "25-29",
+            "30-34",
+            "35-39",
+            "40-44",
+            "45-49",
+            "50-54",
+            "55-59",
+            "60-64",
+            "65-69",
+            "70-74",
+            "75-79",
+            "80-84",
+            "85+"
+          ]
+        },
+        "x": {
+          "datum": 0
+        },
+        "text": {
+          "field": "age"
+        }
+      }
+    },
+    {
+      "data": {"values": [
+        {"age": "25-29", "x": 0, "note": ".... Working-age peak"}
+      ]},
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 13, "fontStyle": "italic", "color": "#ffffff"},
+      "encoding": {
+        "y": {"field": "age", "type": "ordinal", "sort": ["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85+"]},
+        "x": {"datum": 0},
+        "text": {"field": "note"}
+      }
+    }
+  ]
+}

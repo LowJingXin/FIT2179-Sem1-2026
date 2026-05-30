@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malaysia's Demographic Shift</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5.30.0/build/vega.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1/build/vega-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0/build/vega-embed.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header>
+  <h1>Malaysia's Demographic Shift</h1>
+  <p class="hero-sub">25 years of demographic data - how Malaysia has grown, diversified, and begun to age, state by state and community by community.</p>
+  <div class="kpi-strip">
+    <div class="kpi k-gold"><div class="kpi-val">34.2M</div><div class="kpi-lbl">Total population 2025</div></div>
+    <div class="kpi k-blue"><div class="kpi-val">455,761</div><div class="kpi-lbl">Births recorded (2023)</div></div>
+    <div class="kpi k-burnt"><div class="kpi-val">196,965</div><div class="kpi-lbl">Deaths recorded (2023)</div></div>
+    <div class="kpi"><div class="kpi-val">+46%</div><div class="kpi-lbl">Growth since 2000</div></div>
+  </div>
+</header>
+
+<!-- ══════════════════ NAV ══════════════════════ -->
+<nav id="main-nav">
+  <a href="#s1">Population</a>
+  <a href="#s2">States</a>
+  <a href="#s3">Ethnicity</a>
+  <a href="#s4">Age &amp; Gender</a>
+  <a href="#s5">Births &amp; Deaths</a>
+  <a href="#s6">Explorer</a>
+</nav>
+
+<!-- ══════════════════ S1: TOTAL POPULATION ═══ -->
+<section class="section" id="s1">
+  <div class="reveal">
+    <div class="section-num">01 — The Big Picture</div>
+    <h2>A Nation of <em>34 Million</em></h2>
+    <p class="narrative">Malaysia's population grew 46% in 25 years — from 23.5 million in 2000 to 34.2 million in 2025. Growth briefly reversed in 2020, the clearest COVID-19 signal in the data, before resuming.</p>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Total Population</div>
+    <div id="c-totalpop"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══════════════════ S2: STATES ══════════════ -->
+<section class="section" id="s2">
+  <div class="reveal">
+    <div class="section-num">02 — Where We Live</div>
+    <h2>Selangor's <em>Gravitational Pull</em></h2>
+    <p class="narrative">Selangor holds over 20% of all Malaysians. The slope chart traces the top 8 states from 2010 to 2025 — Selangor, Kuala Lumpur and Sabah added the most people. Use the buttons below to re-sort the bar chart.</p>
+  </div>
+  <div class="grid-3-2">
+    <div class="chart-card reveal" style = "background: #d4eaf7;">
+      <div class="chart-label">Population by State</div>
+      <div id="c-map"></div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="chart-label">Population Growth of Top 8 States</div>
+      <div id="c-slope"></div>
+    </div>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Population by State</div>
+    <div class="ctrl-bar">
+      <span class="ctrl-label">Sort:</span>
+      <div class="btn-group">
+        <button class="btn active" onclick="sortStateBar('population','descending',this)">Largest first</button>
+        <button class="btn" onclick="sortStateBar('population','ascending',this)">Smallest first</button>
+        <button class="btn" onclick="sortStateBar('state','ascending',this)">A – Z</button>
+      </div>
+    </div>
+    <div id="c-state-bar"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══════════════════ S3: ETHNICITY ═══════════ -->
+<section class="section" id="s3">
+  <div class="reveal">
+    <div class="section-num">03 — Who We Are</div>
+    <h2>A <em>Multi-Ethnic</em> Mosaic</h2>
+    <p class="narrative">Bumiputera Malays are the largest and fastest-growing group. The Chinese community has been stable since ~2015. Non-citizens dipped sharply in 2020–21 as borders closed. The dumbbell chart directly compares each group's size in 2000 vs 2025.</p>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Population by Ethnicity</div>
+    <div id="c-eth-stack"></div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card reveal">
+      <div class="chart-label">Ethnic Share of Total Population</div>
+      <div id="c-eth-norm"></div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="chart-label">Ethnic Growth: 2000 vs 2025 </div>
+      <div id="c-eth-dumbbell"></div>
+    </div>
+  </div>
+  <div class="chart-card reveal" style="display:flex; justify-content:center;">
+    <div>
+      <div class="chart-label">
+        Ethnic Growth Profile
+      </div>
+      <div id="c-radar"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══════════════════ S4: PYRAMID ═════════════ -->
+<section class="section" id="s4">
+  <div class="reveal">
+    <div class="section-num">04 — Age &amp; Gender</div>
+    <h2>A Young But <em>Maturing</em> Nation</h2>
+    <p class="narrative">The widest bars sit in the 20–34 working-age bracket — Malaysia's demographic dividend. The narrowing 0–9 base signals a falling birth rate. Age group labels are centred on the spine between male (left) and female (right).</p>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Population Pyramids</div>
+    <div class="legend-row" style="margin-bottom:0.85rem">
+      <div class="legend-item"><div class="l-line" style="background:#1e40af"></div>Male</div>
+      <div class="legend-item"><div class="l-line" style="background:#9a3412"></div>Female</div>
+    </div>
+    <div id="c-pyramid"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══════════════════ S5: BIRTHS & DEATHS ═════ -->
+<section class="section" id="s5">
+  <div class="reveal">
+    <div class="section-num">05 — Life &amp; Death</div>
+    <h2>Births <em>Falling</em>, Deaths Rising</h2>
+    <p class="narrative">National births fell 15% from 2000 to 2023. Deaths nearly doubled in 2021 — Malaysia's COVID-19 Delta wave. The natural increase (births minus deaths) keeps narrowing. Drag the sliders on the state charts to travel through time.</p>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label"> Overall Births &amp; Deaths · Malaysia 2000–2023</div>
+    <div class="legend-row" style="margin-bottom:0.85rem">
+      <div class="legend-item"><div class="l-line" style="background:#1e40af"></div>Births</div>
+      <div class="legend-item"><div class="l-line" style="background:#9a3412"></div>Deaths</div>
+    </div>
+    <div id="c-bd"></div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card reveal">
+      <div class="chart-label">Births by State</div>
+      <div class="ctrl-bar">
+        <div class="btn-group">
+          <button class="btn active" onclick="sortBirths('births','descending',this)">By value</button>
+          <button class="btn" onclick="sortBirths('state','ascending',this)">A – Z</button>
+        </div>
+      </div>
+      <div id="c-births-state"></div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="chart-label">Deaths by State</div>
+      <div class="ctrl-bar">
+        <div class="btn-group">
+          <button class="btn active" onclick="sortDeaths('death','descending',this)">By value</button>
+          <button class="btn" onclick="sortDeaths('state','ascending',this)">A – Z</button>
+        </div>
+      </div>
+      <div id="c-deaths-state"></div>
+    </div>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Natural Increase (Births − Deaths) by State · drag slider to change year</div>
+    <div id="c-nat-inc"></div>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">yearly births by state </div>
+    <div id="c-heatmap"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══════════════════ S6: STATE EXPLORER ══════ -->
+<section class="section" id="s6">
+  <div class="reveal">
+    <div class="section-num">06 — State Explorer</div>
+    <h2>Your State's <em>Story</em></h2>
+    <p class="narrative">Select any state from the dropdown to trace births and deaths from 2000 to 2023. Notice how the 2021 COVID spike appears in every state with different magnitudes, and how some states show deaths converging toward births.</p>
+  </div>
+  <div class="chart-card reveal">
+    <div class="chart-label">Births &amp; Deaths · select a state · 2000–2023</div>
+    <div class="legend-row" style="margin-bottom:0.85rem">
+      <div class="legend-item"><div class="l-line" style="background:#1e40af"></div>Births</div>
+      <div class="legend-item"><div class="l-line" style="background:#9a3412"></div>Deaths</div>
+    </div>
+    <div id="c-state-trend"></div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; max-width:900px;">
+
+    <div>
+      <strong>Data Sources</strong>
+      <ul style="margin-top:0.5rem; padding-left:0; list-style:none; line-height:2;">
+        <li><a href="https://data.gov.my/data-catalogue/deaths" target="_blank">Deaths — data.gov.my</a></li>
+        <li><a href="https://data.gov.my/data-catalogue/births" target="_blank">Births — data.gov.my</a></li>
+        <li><a href="https://data.gov.my/data-catalogue/births_annual_state" target="_blank">Births by State — data.gov.my</a></li>
+        <li><a href="https://open.dosm.gov.my/data-catalogue/deaths" target="_blank">Deaths — open.dosm.gov.my</a></li>
+        <li><a href="https://open.dosm.gov.my/data-catalogue/deaths_state" target="_blank">Deaths by State — open.dosm.gov.my</a></li>
+        <li><a href="https://open.dosm.gov.my/data-catalogue/deaths_sex_ethnic" target="_blank">Deaths by Sex &amp; Ethnicity — open.dosm.gov.my</a></li>
+        <li><a href="https://data.gov.my/data-catalogue/population_malaysia" target="_blank">Population Malaysia — data.gov.my</a></li>
+        <li><a href="https://data.gov.my/data-catalogue/population_state" target="_blank">Population by State — data.gov.my</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <strong>Acknowledgements</strong>
+      <p style="margin-top:0.5rem; line-height:1.8;">
+        All data is sourced from the Department of Statistics Malaysia (DOSM) and published under open government licence.
+      </p>
+      <p style="margin-top:0.75rem; line-height:1.8;">
+        <strong>AI Acknowledgement:</strong> The visual design and layout of this webpage were generated with the assistance of
+        <a href="https://claude.ai" target="_blank">Claude AI</a> (Anthropic).
+        All data collection, analysis, interpretation, and editorial decisions were carried out by the author.
+      </p>
+      <p style="margin-top:0.75rem;">
+        Visualisation built with <a href="https://vega.github.io/vega-lite/" target="_blank">Vega-Lite v5<br></a>
+      </p>
+      <p style="margin-top: 0.75em;">
+        By <strong>Low Jing Xin</strong> in May 2026
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+/* ── Shared Vega-Lite config ─────────────────────────────── */
+const CFG = {
+  background: "transparent",
+  font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  axis: {
+    labelColor: "#7a6f65", gridColor: "#e8e1d5", domainColor: "#ddd5c8",
+    tickColor: "#ddd5c8", titleColor: "#a99d94",
+    labelFontSize: 11, titleFontSize: 11, gridOpacity: 0.7,
+    labelFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+    titleFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+  },
+  legend: {
+    labelColor: "#7a6f65", titleColor: "#7a6f65", labelFontSize: 11, symbolSize: 80,
+    labelFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+    titleFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+  },
+  view: { stroke: "transparent" },
+  mark: { tooltip: true }
+};
+const OPTS = { actions: false, renderer: "svg", config: CFG };
+
+/* ── Helper: load JSON spec from charts/ and embed ────────── */
+function loadChart(specFile, targetId, cb) {
+  fetch(specFile)
+    .then(r => r.json())
+    .then(spec => vegaEmbed(targetId, spec, OPTS).then(r => { if (cb) cb(r.view, spec); }))
+    .catch(e => console.error(specFile, e));
+}
+
+/* ── Helper: embed a modified spec copy ───────────────────── */
+function reEmbed(targetId, spec) {
+  return vegaEmbed(targetId, spec, OPTS);
+}
+
+/* ══════════════════════════════════════════════════════════
+   STATIC CHARTS — load once, no JS interaction needed
+   ══════════════════════════════════════════════════════════ */
+loadChart("charts/c01_totalpop.json",    "#c-totalpop");
+loadChart("charts/c02_map.json",         "#c-map");
+loadChart("charts/c03_slope.json",       "#c-slope");
+loadChart("charts/c05_eth_stack.json",   "#c-eth-stack");
+loadChart("charts/c06_eth_norm.json",    "#c-eth-norm");
+loadChart("charts/c07_eth_dumbbell.json","#c-eth-dumbbell");
+loadChart("charts/c08_pyramid.json",     "#c-pyramid");
+loadChart("charts/c09_bd.json",          "#c-bd");
+
+/* Charts with VL-native params (sliders/select rendered by Vega) */
+loadChart("charts/c10_births_state.json", "#c-births-state");
+loadChart("charts/c11_deaths_state.json", "#c-deaths-state");
+loadChart("charts/c12_nat_increase.json", "#c-nat-inc");
+loadChart("charts/c13_state_trend.json",  "#c-state-trend");
+
+loadChart("charts/c14_births_heatmap.json", "#c-heatmap");
+loadChart("charts/c15_radar.json", "#c-radar");
+
+/* ══════════════════════════════════════════════════════════
+   INTERACTIVE: State bar (sort buttons modify spec + re-embed)
+   ══════════════════════════════════════════════════════════ */
+let stateBarSpec = null;
+fetch("charts/c04_state_bar.json")
+  .then(r => r.json())
+  .then(spec => {
+    stateBarSpec = spec;
+    reEmbed("#c-state-bar", spec);
+  });
+
+function sortStateBar(field, order, btn) {
+  if (!stateBarSpec) return;
+  const spec = JSON.parse(JSON.stringify(stateBarSpec));
+  spec.encoding.x.sort = { field, order };
+  btn.closest(".btn-group").querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  reEmbed("#c-state-bar", spec);
+}
+
+/* ══════════════════════════════════════════════════════════
+   INTERACTIVE: Births/Deaths state sort buttons
+   Year slider is handled natively by Vega-Lite params.
+   Sort re-embeds spec with modified sort field and
+   restores the year signal via the view API.
+   ══════════════════════════════════════════════════════════ */
+let birthsSpec = null, birthsView = null, birthsSortField = "births", birthsSortOrder = "descending";
+let deathsSpec = null, deathsView = null, deathsSortField = "death",  deathsSortOrder = "descending";
+
+fetch("charts/c10_births_state.json")
+  .then(r => r.json())
+  .then(spec => {
+    birthsSpec = spec;
+    reEmbed("#c-births-state", spec).then(r => { birthsView = r.view; });
+  });
+
+fetch("charts/c11_deaths_state.json")
+  .then(r => r.json())
+  .then(spec => {
+    deathsSpec = spec;
+    reEmbed("#c-deaths-state", spec).then(r => { deathsView = r.view; });
+  });
+
+function sortBirths(field, order, btn) {
+  if (!birthsSpec) return;
+  const currentYear = birthsView ? birthsView.signal("yearParam") : 2023;
+  const spec = JSON.parse(JSON.stringify(birthsSpec));
+  spec.encoding.y.sort = { field, order };
+  spec.params[0].value = currentYear;       // restore slider position
+  btn.closest(".btn-group").querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  reEmbed("#c-births-state", spec).then(r => { birthsView = r.view; });
+}
+
+function sortDeaths(field, order, btn) {
+  if (!deathsSpec) return;
+  const currentYear = deathsView ? deathsView.signal("yearParam") : 2023;
+  const spec = JSON.parse(JSON.stringify(deathsSpec));
+  spec.encoding.y.sort = { field, order };
+  spec.params[0].value = currentYear;
+  btn.closest(".btn-group").querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  reEmbed("#c-deaths-state", spec).then(r => { deathsView = r.view; });
+}
+
+/* ══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ══════════════════════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+  });
+}, { threshold: 0.07, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ══════════════════════════════════════════════════════════
+   NAV ACTIVE HIGHLIGHT ON SCROLL
+   ══════════════════════════════════════════════════════════ */
+const navLinks = document.querySelectorAll("nav a");
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+document.querySelectorAll("section.section").forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>

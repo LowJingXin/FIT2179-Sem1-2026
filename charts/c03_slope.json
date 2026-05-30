@@ -1,0 +1,145 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 370,
+  "data": {
+    "url": "data/population_state_growth.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rnk"
+        }
+      ],
+      "sort": [
+        {
+          "field": "population_2025",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rnk <= 8"
+    },
+    {
+      "fold": [
+        "population_2010",
+        "population_2025"
+      ],
+      "as": [
+        "year_key",
+        "population"
+      ]
+    },
+    {
+      "calculate": "datum.year_key === 'population_2010' ? '2010' : '2025'",
+      "as": "year_label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2,
+        "point": {
+          "filled": true,
+          "size": 70
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "year_label",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year",
+            "labelFontSize": 13,
+            "labelAngle": 0,
+            "labelFontWeight": "bold"
+          }
+        },
+        "y": {
+          "field": "population",
+          "type": "quantitative",
+          "title": "Population ('000)",
+          "scale": {
+            "zero": false
+          }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "scale": {
+            "scheme": "dark2"
+          },
+          "legend": null
+        },
+        "detail": {
+          "field": "state"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "year_label",
+            "title": "Year"
+          },
+          {
+            "field": "population",
+            "title": "Population ('000)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.year_label === '2025'"},
+        {"filter": "datum.state === 'Selangor' || datum.state === 'Johor' || datum.state === 'Sabah' || datum.state === 'Kuala Lumpur' || datum.state === 'Sarawak'"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 7,
+        "fontSize": 9
+      },
+      "encoding": {
+        "x": {
+          "field": "year_label",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "population",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "state"
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "scale": {
+            "scheme": "dark2"
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.year_label === '2010'"},
+        {"filter": "datum.state !== 'Selangor' && datum.state !== 'Johor' && datum.state !== 'Sabah' && datum.state !== 'Kuala Lumpur' && datum.state !== 'Sarawak'"}
+      ],
+      "mark": {"type": "text", "align": "right", "dx": -7, "fontSize": 9.5},
+      "encoding": {
+        "x": {"field": "year_label", "type": "ordinal"},
+        "y": {"field": "population", "type": "quantitative"},
+        "text": {"field": "state"},
+        "color": {"field": "state", "type": "nominal", "scale": {"scheme": "dark2"}, "legend": null}
+      }
+    }
+  ]
+}

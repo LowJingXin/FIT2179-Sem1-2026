@@ -1,0 +1,68 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/death_state_clean.csv"
+  },
+  "params": [
+    {
+      "name": "yearParam",
+      "value": 2023,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2023,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.year == yearParam"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3,
+    "color": "#9a3412"
+  },
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": {
+        "field": "death",
+        "order": "descending"
+      },
+      "axis": {
+        "title": "",
+        "labelFontSize": 11
+      }
+    },
+    "x": {
+      "field": "death",
+      "type": "quantitative",
+      "title": "Deaths"
+    },
+    "opacity": {
+      "value": 0.85
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "year",
+        "title": "Year"
+      },
+      {
+        "field": "death",
+        "title": "Deaths",
+        "format": ","
+      }
+    ]
+  }
+}

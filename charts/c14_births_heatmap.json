@@ -1,0 +1,20 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container", "height": 360,
+    "data": {"url": "data/birth_state_clean.csv"},
+    "mark": {"type": "rect"},
+    "encoding": {
+        "y": {"field": "state", "type": "nominal", "sort": {"field": "births", "order": "descending"}, "axis": {"title": ""}},
+        "x": {"field": "year", "type": "ordinal", "axis": {"title": "", "labelAngle": -45}},
+        "color": {
+        "field": "births", "type": "quantitative",
+        "scale": {"scheme": "blues"},
+        "legend": {"title": "Births"}
+        },
+        "tooltip": [
+        {"field": "state", "title": "State"},
+        {"field": "year", "title": "Year"},
+        {"field": "births", "title": "Births", "format": ","}
+        ]
+    }
+}

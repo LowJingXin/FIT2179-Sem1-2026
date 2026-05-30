@@ -1,0 +1,76 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 260,
+  "data": {
+    "url": "data/population_ethnicity.csv"
+  },
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "axis": {
+        "labelAngle": 0,
+        "title": "Year", 
+        "values": ["2000", "2005", "2010", "2015", "2020", "2025"]
+      }
+    },
+    "y": {
+      "field": "population",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {
+        "format": "%",
+        "title": "Share of population"
+      }
+    },
+    "color": {
+      "field": "ethnicity",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "bumi_malay",
+          "bumi_other",
+          "chinese",
+          "indian",
+          "other_citizen",
+          "other_noncitizen"
+        ],
+        "range": [
+          "#5E81AC",
+          "#88C0D0",
+          "#A3BE8C",
+          "#EBCB8B",
+          "#D08770",
+          "#B48EAD"
+        ]
+      },
+      "legend": {
+        "title": "Ethnicity",
+        "orient": "right"
+      }
+    },
+    "order": {
+      "field": "ethnicity"
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "title": "Year"
+      },
+      {
+        "field": "ethnicity",
+        "title": "Group"
+      },
+      {
+        "field": "population",
+        "title": "Population ('000)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

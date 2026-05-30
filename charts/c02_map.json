@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 370,
+  "projection": {
+    "type": "mercator",
+    "center": [109, 4],
+    "scale": 1750
+  },
+  "params": [
+    {
+      "name": "yearParam",
+      "value": 2025,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2025,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {"graticule": {"step": [5, 5]}},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#aac8dc",
+        "strokeWidth": 0.3,
+        "fill": null
+      }
+    },
+    {
+      "data": {
+        "url": "data/population_state_map.csv"
+      },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.year)",
+          "as": "year_num"
+        },
+        {
+          "filter": "datum.year_num == yearParam"
+        },
+        {
+          "calculate": "(toNumber(datum.population) * 1000) / toNumber(datum.area)",
+          "as": "density"
+        },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "data/malaysia_states.topojson",
+              "format": {"type": "topojson", "feature": "states"}
+            },
+            "key": "properties.Name",
+            "fields": ["type", "geometry"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#faf7f2",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "field": "density",
+          "type": "quantitative",
+          "scale": {
+            "type": "log",
+            "scheme": "reds",
+            "domain": [10, 500]
+          },
+          "legend": {
+            "title": "Population / km²",
+            "orient": "bottom-right",
+            "gradientLength": 100,
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {"field": "state",      "title": "State"},
+          {"field": "year_num",   "title": "Year"},
+          {"field": "population", "title": "Population ('000)", "format": ".1f"},
+          {"field": "density",    "title": "Density (per km²)", "format": ".1f"}
+        ]
+      }
+    }
+  ]
+}

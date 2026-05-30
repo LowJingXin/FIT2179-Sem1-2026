@@ -1,0 +1,131 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 260,
+  "data": {
+    "url": "data/population_ethnicity.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year == 2000 || datum.year == 2025"
+    },
+    {
+      "calculate": "datum.year == 2000 ? 'pop_2000' : 'pop_2025'",
+      "as": "period"
+    },
+    {
+      "pivot": "period",
+      "value": "population",
+      "groupby": [
+        "ethnicity"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2.5,
+        "color": "#ddd5c8"
+      },
+      "encoding": {
+        "y": {
+          "field": "ethnicity",
+          "type": "nominal",
+          "sort": {
+            "field": "pop_2025",
+            "order": "descending"
+          },
+          "axis": {
+            "title": "",
+            "labelExpr": "{'bumi_malay':'Bumi Malay','bumi_other':'Bumi Other','chinese':'Chinese','indian':'Indian','other_citizen':'Other Citizen','other_noncitizen':'Non-Citizen'}[datum.value]"
+          }
+        },
+        "x": {
+          "field": "pop_2000",
+          "type": "quantitative",
+          "title": "Population ('000)"
+        },
+        "x2": {
+          "field": "pop_2025"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 110,
+        "color": "#a99d94"
+      },
+      "encoding": {
+        "y": {
+          "field": "ethnicity",
+          "type": "nominal",
+          "sort": {
+            "field": "pop_2025",
+            "order": "descending"
+          },
+          "axis": {
+            "labels": false,
+            "ticks": false,
+            "title": ""
+          }
+        },
+        "x": {
+          "field": "pop_2000",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "ethnicity",
+            "title": "Group"
+          },
+          {
+            "field": "pop_2000",
+            "title": "2000 Pop ('000)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 110,
+        "color": "#1e40af"
+      },
+      "encoding": {
+        "y": {
+          "field": "ethnicity",
+          "type": "nominal",
+          "sort": {
+            "field": "pop_2025",
+            "order": "descending"
+          },
+          "axis": {
+            "labels": false,
+            "ticks": false,
+            "title": ""
+          }
+        },
+        "x": {
+          "field": "pop_2025",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "ethnicity",
+            "title": "Group"
+          },
+          {
+            "field": "pop_2025",
+            "title": "2025 Pop ('000)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ]
+}
