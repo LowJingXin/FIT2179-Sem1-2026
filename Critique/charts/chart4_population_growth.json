@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Population Growth by State, 2010 - 2025",
+  "width": 800,
+  "height": 500,
+  "data": {
+    "url": "data/population_state_growth.csv"
+  },
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "State"
+    },
+    "x": {
+      "field": "growth",
+      "type": "quantitative",
+      "title": "Population Growth ('000)"
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "population_2010",
+        "type": "quantitative",
+        "title": "Population in 2010"
+      },
+      {
+        "field": "population_2025",
+        "type": "quantitative",
+        "title": "Population in 2025"
+      },
+      {
+        "field": "growth",
+        "type": "quantitative",
+        "title": "Growth"
+      }
+    ]
+  }
+}

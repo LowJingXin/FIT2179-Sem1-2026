@@ -1,0 +1,49 @@
+{  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Deaths by State and Year in Malaysia",
+  "width": 850,
+  "height": 500,
+  "data": {
+    "url": "data/death_state_clean.csv"
+  },
+  "mark": {
+    "type": "rect"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State"
+    },
+    "color": {
+      "field": "death",
+      "type": "quantitative",
+      "title": "Number of deaths"
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "death",
+        "type": "quantitative",
+        "title": "Deaths"
+      }
+    ]
+  }
+}

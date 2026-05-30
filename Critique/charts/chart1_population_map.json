@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Population by State in Malaysia, 2025",
+  "width": 720,
+  "height": 500,
+  "data": {
+    "url": "data/malaysia_states.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+  "projection": {
+    "type": "equalEarth"
+  },
+  "transform": [
+    {
+      "lookup": "properties.Name",
+      "from": {
+        "data": {
+          "url": "data/population_state_map.csv"
+        },
+        "key": "state",
+        "fields": ["population"]
+      }
+    }
+  ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "color": {
+      "field": "population",
+      "type": "quantitative",
+      "title": "Population"
+    },
+    "tooltip": [
+      {
+        "field": "properties.Name",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "population",
+        "type": "quantitative",
+        "title": "Population"
+      }
+    ]
+  }
+}
